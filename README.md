@@ -69,8 +69,50 @@ jq -r '."line-000001-000000"'
 
 ## Installation
 
-TODO: Write instructions here (installation/compilation, how-to use it with
-docker)
+Just compile it and start with command-line: `./astcli --help`.
+
+### Docker
+
+If you want just to use `astcli` within docker-container, simply use multi-stage
+build. Example:
+
+```dockerfile
+FROM andrius/crystal-lang as astcli
+
+WORKDIR /src
+RUN git clone https://github.com/ctiapps/astcli.git . \
+ && git checkout tags/v0.1.0
+RUN shards build --production --release --no-debug --progress --warnings=all
+# create list of deps to copy or astcli won't work with Alpine linux
+RUN ldd ./bin/astcli | tr -s '[:blank:]' '\n' | grep '^/' | \
+    xargs -I % sh -c 'mkdir -p $(dirname deps%); cp % deps%;'
+RUN find ./deps/
+
+#########################################################
+
+FROM andrius/alpine-ruby:latest
+
+# Copyng dependences. Could be skipped with Debian or Ubuntu
+COPY --from=astcli /src/deps /
+# that will fix DNS resolve issue in docker
+COPY --from=astcli /lib/x86_64-linux-gnu/libnss_dns.so.* /lib/x86_64-linux-gnu/
+COPY --from=astcli /lib/x86_64-linux-gnu/libresolv.so.*  /lib/x86_64-linux-gnu/
+
+# Copy astcli script
+COPY --from=astcli /src/bin/astcli /usr/local/bin/astcli
+
+# Everything else...
+ENV WORKDIR /app
+WORKDIR ${WORKDIR}
+
+ENV TIMEZONE "Europe/Amsterdam"
+
+ENV DOCKER_BUILD_DEPS build-base \
+  git \
+  libxml2-dev \
+  libxslt-dev \
+  ...
+```
 
 ## Development
 
