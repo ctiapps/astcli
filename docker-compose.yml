@@ -1,0 +1,9 @@
+version: '3.7'
+
+services:
+  astcli:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/src

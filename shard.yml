@@ -1,0 +1,18 @@
+name: astcli
+version: 0.1.0
+
+authors:
+  - Andrius Kairiukstis <k@andrius.mobi>
+
+targets:
+  astcli:
+    main: src/astcli.cr
+
+dependencies:
+  asterisk:
+    github: ctiapps/asterisk
+    version: ~> 0.1
+
+crystal: 0.30.1
+
+license: MIT
