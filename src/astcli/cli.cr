@@ -2,7 +2,7 @@ require "option_parser"
 require "json"
 
 module AstCLI
-  class CommandLine
+  class CLI
     getter host     = "localhost"
     getter port     = "5038"
     getter username = ""

@@ -2,21 +2,21 @@ require "./spec_helper"
 
 describe AstCLI do
   it "should correctly process command line options (credentials)" do
-    astcli = AstCLI::CommandLine.new command_line: %w(-u foo -s bar sip show peers)
+    astcli = AstCLI::CLI.new command_line: %w(-u foo -s bar sip show peers)
     astcli.username.should eq("foo")
     astcli.secret.should eq("bar")
   end
 
   it "should correctly process Asterisk CLI command from command line" do
-    astcli = AstCLI::CommandLine.new command_line: %w(-u foo -s bar sip show peers)
+    astcli = AstCLI::CLI.new command_line: %w(-u foo -s bar sip show peers)
     astcli.action.should eq({"action" => "Command", "command" => "sip show peers"})
 
-    astcli = AstCLI::CommandLine.new command_line: ["-u", "foo", "-s", "bar", "sip show peers"]
+    astcli = AstCLI::CLI.new command_line: ["-u", "foo", "-s", "bar", "sip show peers"]
     astcli.action.should eq({"action" => "Command", "command" => "sip show peers"})
   end
 
   it "should correctly process Asterisk AMI action as JSON" do
-    astcli = AstCLI::CommandLine.new command_line: ["-u", "foo", "-s", "bar", "{\"action\": \"SIPpeers\"}"]
+    astcli = AstCLI::CLI.new command_line: ["-u", "foo", "-s", "bar", "{\"action\": \"SIPpeers\"}"]
     astcli.action.should eq({"action" => "SIPpeers"})
   end
 

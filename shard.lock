@@ -1,6 +1,0 @@
-version: 1.0
-shards:
-  asterisk:
-    github: ctiapps/asterisk
-    version: 0.1.2
-
