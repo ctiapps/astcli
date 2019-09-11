@@ -6,7 +6,7 @@ authors:
 
 targets:
   astcli:
-    main: src/astcli.cr
+    main: src/cli.cr
 
 dependencies:
   asterisk:
