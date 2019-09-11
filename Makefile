@@ -6,7 +6,7 @@ SHARD_BIN ?= ../../bin
 build: bin/astcli
 bin/astcli:
 	# $(SHARDS_BIN) build $(CRFLAGS)
-	$(SHARDS_BIN) build --production --release --no-debug --progress --warnings=all
+	$(SHARDS_BIN) build --static --no-debug --progress --warnings=all
 clean:
 	rm -f ./bin/astcli ./bin/astcli.dwarf
 install: build
