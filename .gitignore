@@ -1,4 +1,5 @@
 /docs/
 /lib/
 /.shards/
+/shard.lock
 *.dwarf
