@@ -11,6 +11,7 @@ targets:
 dependencies:
   asterisk:
     github: ctiapps/asterisk
+    version: ~> 0.1.3
 
 scripts:
   postinstall: make bin && make run_file
@@ -18,6 +19,6 @@ scripts:
 executables:
   - astcli
 
-crystal: 0.30.1
+crystal: 0.31.1
 
 license: MIT
